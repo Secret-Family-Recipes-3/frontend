@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
+import { Switch, Route } from 'react-router-dom'
 
 function App() {
   return (
@@ -19,6 +20,15 @@ function App() {
           Learn React
         </a>
       </header>
+      <Switch>
+        <Route to='/login'>
+
+        </Route>
+        
+        <Route to='/'>
+
+        </Route>
+      </Switch>
     </div>
   );
 }
