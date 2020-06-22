@@ -1,6 +1,8 @@
 import React from 'react'
 
 export default function Register(props) {
+    const { onChange } = props
+
     return (
         <div>
             <div>
@@ -9,10 +11,10 @@ export default function Register(props) {
             <form onSubmit=''>
                 <h2>Register</h2>
                 <label>Email:
-                    <input name='email' type='text' />
+                    <input name='email' type='text' onChange={onChange} />
                 </label>
-                <label>
-                    <input name='password' type='text' />
+                <label>Password:
+                    <input name='password' type='text' onChange={onChange} />
                 </label>
                 <button>Register</button>
             </form>
