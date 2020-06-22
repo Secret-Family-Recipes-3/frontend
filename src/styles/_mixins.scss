@@ -5,3 +5,10 @@
         @content;
     }
 }
+
+
+// Smooth transition
+
+@mixin transition($property) {
+    transition: #{$property} 0.4s ease;
+}
