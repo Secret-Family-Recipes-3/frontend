@@ -1,0 +1,41 @@
+
+
+// Input fields
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number']
+ {
+    display: block;
+    width: 100%;
+    border: 1px solid $color-gray-light;
+    line-height: 6rem;
+    text-indent: 2rem;
+    margin-bottom: 3rem;
+
+    &:focus {
+        outline: $color-green solid 1px;
+    }
+}
+
+textarea {
+    border: 1px solid $color-gray-light;
+    min-height: 12rem;
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:focus {
+        outline: $color-green solid 1px;
+    }
+}
+
+
+// Labels
+
+label[for] {
+    @extend h5;
+    display: block;
+    margin-bottom: 1rem;
+}
