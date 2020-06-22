@@ -1,0 +1,30 @@
+.container {
+    margin: 0 auto;
+    padding: 0 15px;
+
+    @include responsive ('lg') {
+        width: 1110px;
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+*[class*="col-"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+        @for $i from 1 through 12 {
+            .col-#{$breakpoint}-#{$i} {
+                padding-right: 30px;
+                width: $i / 12 * 100%;
+            }
+        }
+    }
+}

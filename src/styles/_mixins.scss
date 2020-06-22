@@ -1,0 +1,7 @@
+
+
+@mixin responsive($breakpoint) {
+    @media (min-width: map-get($map: $breakpoints, $key: $breakpoint)) {
+        @content;
+    }
+}

@@ -10,3 +10,10 @@ $color-gray: #777777;
 $color-gray-light: #DDDDDD;
 $color-gray-dark: #111111;
 
+
+// Breakpoints
+
+$breakpoints: (
+    "md": 768px,
+    "lg": 992px
+);
