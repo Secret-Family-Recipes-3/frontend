@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { Switch, Route } from 'react-router-dom'
 import Login from './components/Login'
@@ -6,25 +6,34 @@ import Register from './components/Register'
 import Home from './components/Home'
 
 function App() {
+
+    const [value, setValue] = useState()
+
+    const onChange = event => {
+        const name = event.target.name
+        const fieldValue = event.target.value
+        
+        console.log(`${name}: ${value}`)
+
+        setValue({...value, [name]: fieldValue})
+    }
+
+    const submitLogin = event => {
+        event.preventDefault()
+        
+        console.log(`email: ${value.email}, password: ${value.password}`)
+    }
+
     return (
         <div className="App">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
-                        Sample col md 6
-                    </div>
-                    <div className="col-md-6">
-                        Sample col md 6
-                    </div>
-                </div>
-            </div>
             <Switch>
                 <Route to='/login'>
-                    <Login />
+                    <Login onChange={onChange}
+                    submitLogin={submitLogin} />
                 </Route>
 
                 <Route to='/register'>
-                    <Register />
+                    <Register onChange={onChange} />
                 </Route>
                 
                 <Route to='/'>
