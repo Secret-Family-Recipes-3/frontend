@@ -1,0 +1,56 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.Header {
+    position: relative;
+
+    h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 1rem;
+        line-height: 1;
+    }
+
+    &__inner {
+        border-bottom: 1px solid rgba($color-brown, 0.4);
+        padding: 6rem 0;
+    }
+
+    &__logo {
+        text-indent: -99999px;
+        width: 285px;
+        height: 128px;
+        background-image: url(./logo.svg);
+        background-repeat: no-repeat;
+        display: block;
+        margin: 0 auto;
+    }
+
+    &__nav {
+        display: flex;
+        margin-top: 3rem;
+        justify-content: center;
+        width: 100%;
+
+        a {
+            margin-right: 3rem;
+            text-decoration: none;
+
+            @include responsive('md') {
+                margin-right: 405px;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        @include responsive('md') {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+    }
+}

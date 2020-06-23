@@ -1,12 +1,13 @@
 import React from 'react'
+import './TopPanel.scss';
 
 export default function TopPanel () {
     return (
-        <div className='topPanel'>
+        <div className='TopPanel'>
             <div className='container'>
                 <div className='row'>
                     <div className='col-lg-12'>
-                        <ul className="topPanel__nav">
+                        <ul className="TopPanel__nav">
                             <li>
                                 <a href='/#'>Log In</a>
                             </li>

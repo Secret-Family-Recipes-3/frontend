@@ -1,4 +1,7 @@
-.topPanel {
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.TopPanel {
     background-color: $color-green;
     color: white;
     height: 6rem;
