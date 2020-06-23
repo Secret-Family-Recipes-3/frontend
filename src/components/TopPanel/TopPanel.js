@@ -9,6 +9,9 @@ export default function TopPanel () {
                     <div className='col-lg-12'>
                         <ul className="TopPanel__nav">
                             <li>
+                                <a href='/#'>Register</a>
+                            </li>
+                            <li>
                                 <a href='/#'>Log In</a>
                             </li>
                         </ul>
