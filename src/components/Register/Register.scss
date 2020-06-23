@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.Register {
+    margin-top: 12rem;
+    margin-bottom: 12rem;
+
+    &__logo {
+        display: block;
+        background-image: url(../../images/logo.svg);
+        width: 285px;
+        height: 128px;
+        text-indent: -99999px;
+        margin: 0 auto 6rem auto;
+
+        @include responsive('md') {
+            margin-top: 26rem;
+        }
+    }
+}
