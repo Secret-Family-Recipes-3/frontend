@@ -8,6 +8,7 @@ h1, h2, h3, h4, h5 {
 
 h1, h2, h3 {
     font-weight: bold;
+    color: $color-brown;
 }
 
 h4, h5 {
@@ -21,10 +22,18 @@ h1 {
 
 h2 {
     font-size: 6.4rem;
+
+    @media (max-width: map-get($map: $breakpoints, $key: 'md')) {
+        font-size: 8vw;
+    }
 }
 
 h3 {
     font-size: 4.8rem;
+    
+    @media (max-width: map-get($map: $breakpoints, $key: 'md')) {
+        font-size: 6vw;
+    }
 }
 
 h4 {
@@ -33,4 +42,11 @@ h4 {
 
 h5 {
     font-size: 1.6rem;
+}
+
+
+/* Links */
+
+a {
+    color: $color-green-dark;
 }

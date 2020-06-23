@@ -1,0 +1,31 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.RecipeList {
+    margin-bottom: 12rem;
+
+    &__recipe {
+        margin-bottom: 3rem;
+    }
+
+    &__image-wrapper {
+        background-color: $color-brown-light;
+        background-image: url(../../images/forkknife.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+
+        width: 100%;
+        padding-bottom: 100%;
+
+        position: relative;
+        overflow: hidden;
+
+
+        img {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+}

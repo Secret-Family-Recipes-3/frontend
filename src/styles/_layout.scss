@@ -3,7 +3,7 @@
     padding: 0 15px;
 
     @include responsive ('lg') {
-        width: 1110px;
+        width: $container-width;
     }
 }
 
@@ -18,12 +18,16 @@
 }
 
 
+// Columns for all breakpoints
+
 @each $breakpoint, $width in $breakpoints {
     @media (min-width: #{$width}) {
         @for $i from 1 through 12 {
             .col-#{$breakpoint}-#{$i} {
-                padding-right: 30px;
-                width: $i / 12 * 100%;
+                margin-right: 30px;
+                
+                // Subtract 30px to prevent unnecessary wrapping
+                width: calc(#{$i / 12 * 100%} - 30px);
             }
         }
     }
