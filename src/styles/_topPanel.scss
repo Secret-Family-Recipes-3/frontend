@@ -1,0 +1,23 @@
+.topPanel {
+    background-color: $color-green;
+    color: white;
+    height: 6rem;
+
+    &__nav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 6rem;
+        align-items: center;
+        justify-content: flex-end;
+
+        li {
+            margin-left: 3rem;
+        }
+
+        a {
+            color: white;
+        }
+    }
+}
