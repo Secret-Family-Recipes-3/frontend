@@ -5,6 +5,7 @@ import Register from './components/Register/Register';
 import PrivateRoute from './utils/privateRoute';
 import TopPanel from './components/TopPanel/TopPanel';
 import RecipeList from './components/RecipeList/RecipeList';
+import RecipeDetails from './components/RecipeDetails/RecipeDetails';
 
 function App () {
 
@@ -30,6 +31,7 @@ function App () {
             <TopPanel />
             <Switch>
                 <PrivateRoute exact path="/" component={RecipeList} />
+                <PrivateRoute exact path="/recipes" component={RecipeList} />
 
                 <Route path='/login'>
                     <Login onChange={onChange} submitLogin={submitLogin} />
@@ -39,6 +41,7 @@ function App () {
                     <Register onChange={onChange} />
                 </Route>
                 
+                <PrivateRoute path="/recipes/:id" component={RecipeDetails} />
                 
             </Switch>
         </>
