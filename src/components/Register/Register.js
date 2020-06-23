@@ -11,21 +11,28 @@ export default function Register (props) {
         password2: ''
     }
 
+    const initialFormValues = {
+        username: '',
+        password: '',
+        password2: '',
+        email: ''
+    }
+
     const [errors, setErrors] = useState(initialErrors)
     const [submitButton, setSubmitButton] = useState(true)
-    const [formValue, setFormValue] = useState() 
+    const [formValue, setFormValue] = useState(initialFormValues) 
 
 
 
 
     const onChange = event => {
         const name = event.target.name
-        const fieldValue = event.target.value
+        const value = event.target.value
         
-        // console.log(`${name}: ${value}`)
+        console.log(`${name}: ${value}`)
 
         yup.reach(registerSchema, name)
-            .validate(formValue)
+            .validate(value)
             .then(valid => {
                 setErrors({...errors, [name]: ''})
             })
@@ -33,8 +40,7 @@ export default function Register (props) {
                 setErrors({...errors, [name]: err.errors[0]})
             })
 
-
-        setFormValue({...formValue, [name]: fieldValue})
+        setFormValue({...formValue, [name]: value})
     }
 
     useEffect(() => {
@@ -63,26 +69,23 @@ export default function Register (props) {
 
                                 {Object.keys(errors).map((item, key) => {
                                     if (errors[item]) {
-                                        return (<p key={key} className='error'>{item}</p>)
+                                        return (<p key={key} className='error'>{errors[item]}</p>)
                                 }})}
 
                                 <label htmlFor='username'>Username:</label>
-                                <input name='username' type='text' id='username' onChange={onChange} />
-                                {errors.username.length > 0 ? (<p className="error">{errors.username}</p>) : null}
+                                <input name='username' value={formValue.username} type='text' id='username' onChange={onChange} />
 
                                 <label htmlFor='email'>E-mail:</label>
-                                <input name='email' type='email' id='email' onChange={onChange} />
-                                {errors.email.length > 0 ? (<p className="error">{errors.email}</p>) : null}
+                                <input name='email' value={formValue.email} type='email' id='email' onChange={onChange} />
 
                                 <label htmlFor='password'>Password:</label>
-                                <input name='password' type='password' id='password' onChange={onChange} />
-                                {errors.password.length > 0 ? (<p className="error">{errors.password}</p>) : null}
+                                <input name='password' value={formValue.password} type='password' id='password' onChange={onChange} />
 
-                                <label htmlFor='password2'>Password again:</label>
-                                <input name='password2' type='password' id='password2' onChange={onChange} />
-                                {errors.password2.length > 0 ? (<p className="error">{errors.password2}</p>) : null}
+                                <label htmlFor='password2'>Confirm Password:</label>
+                                <input name='password2' value={formValue.password2} type='password' id='password2' onChange={onChange} />
+                                
 
-                                <button disabled={submitButton} className='button button-green'>Log In</button>
+                                <button disabled={submitButton} className='button button-green'>Register</button>
                             </form>
                         </div>
                     </div>
