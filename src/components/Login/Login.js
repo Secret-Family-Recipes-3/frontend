@@ -10,30 +10,37 @@ export default function Login(props) {
         password: ''
     }
 
+    const initialFormValues = {
+        username: '',
+        password: ''
+    }
+
     const [errors, setErrors] = useState(initialErrors)
     const [submitButton, setSubmitButton] = useState(true)
-    const [formValue, setFormValue] = useState() 
+    const [formValue, setFormValue] = useState(initialFormValues) 
 
 
 
 
     const onChange = event => {
         const name = event.target.name
-        const fieldValue = event.target.value
+        const value = event.target.value
         
         // console.log(`${name}: ${value}`)
 
         yup.reach(loginSchema, name)
-            .validate(formValue)
+            .validate(value)
             .then(valid => {
                 setErrors({...errors, [name]: ''})
+                console.log({...valid})
             })
             .catch(err => {
                 setErrors({...errors, [name]: err.errors[0]})
+                console.log(errors)
             })
 
 
-        setFormValue({...formValue, [name]: fieldValue})
+        setFormValue({...formValue, [name]: value})
     }
 
     useEffect(() => {
@@ -41,7 +48,7 @@ export default function Login(props) {
         .then(valid => {
             setSubmitButton(!valid)
         })
-    },)
+    })
 
     const submitLogin = event => {
         event.preventDefault()
@@ -62,13 +69,17 @@ export default function Login(props) {
                             <form onSubmit={submitLogin}>
                                 <h4>Log In:</h4>
 
+                                {Object.keys(errors).map((item, key) => {
+                                    if (errors[item]) {
+                                        return (<p key={key} className='error'>{errors[item]}</p>)
+                                }})}
+
                                 <label htmlFor='username'>Username:</label>
-                                <input name='username' type='text' id='username' onChange={onChange} />
-                                {errors.username.length > 0 ? (<p className="error">{errors.username}</p>) : null}
+                                <input name='username' value={formValue.username} type='text' id='username' onChange={onChange} />
+                                
 
                                 <label htmlFor='password'>Password:</label>
-                                <input name='password' type='password' id='password' onChange={onChange} />
-                                {errors.password.length > 0 ? (<p className="error">{errors.password}</p>) : null}
+                                <input name='password' value={formValue.password} type='password' id='password' onChange={onChange} />
 
                                 <button disabled={submitButton} className='button button-green'>Log In</button>
                             </form>
