@@ -23,9 +23,9 @@ export default function Login(props) {
 
     const [errors, setErrors] = useState(initialErrors);
     const [submitButton, setSubmitButton] = useState(true);
-    const [formValue, setFormValue] = useState(initialFormValues);
+    const [formValues, setFormValues] = useState(initialFormValues);
 
-    const LOGIN_URL = 'https://secretfamilyrecipe3.herokuapp.com/api/login';
+    const LOGIN_URL = 'https://sfr-backend.herokuapp.com/api/auth/login';
 
     const { push } = useHistory();
 
@@ -48,22 +48,27 @@ export default function Login(props) {
             })
 
 
-        setFormValue({...formValue, [name]: value})
+        setFormValues({...formValues, [name]: value})
     }
 
     useEffect(() => {
-        loginSchema.isValid(formValue)
+        loginSchema.isValid(formValues)
             .then(valid => {
                 setSubmitButton(!valid);
             })
-    }, [formValue]);
+    }, [formValues]);
 
     const submitLogin = event => {
         event.preventDefault();
         
         // Send username and password to the server
 
-        axios.post(LOGIN_URL, formValue)
+        const requestData = {
+            username: formValues.username,
+            password: formValues.password
+        };
+
+        axios.post(LOGIN_URL, requestData)
             .then(response => {
                 // Save the token in local storage
                 localStorage.setItem('loginToken', response.data.token);
@@ -115,11 +120,11 @@ export default function Login(props) {
                                 }
 
                                 <label htmlFor='username'>Username:</label>
-                                <input name='username' value={formValue.username} type='text' id='username' onChange={onChange} />
+                                <input name='username' value={formValues.username} type='text' id='username' onChange={onChange} />
                                 
 
                                 <label htmlFor='password'>Password:</label>
-                                <input name='password' value={formValue.password} type='password' id='password' onChange={onChange} />
+                                <input name='password' value={formValues.password} type='password' id='password' onChange={onChange} />
 
                                 <button disabled={submitButton} className='button button-green'>Log In</button>
                             </form>

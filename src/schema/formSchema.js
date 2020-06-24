@@ -32,6 +32,8 @@ export const registerSchema = yup.object().shape({
         .min(7, 'Minimum password length is 7 characters')
         .max(256, 'Passoword must be fewer than 256 characters')
         .required('Password is required'),
+    password2: yup
+        .string()
     /*
     
     password2: yup
