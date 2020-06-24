@@ -75,4 +75,13 @@ label[for] {
             background-color: darken($color-green, 10%);
         }
     }
+
+    &:disabled {
+        background-color: $color-gray-light;
+        cursor: default;
+
+        &:hover {
+            background-color: $color-gray-light;
+        }
+    }
 }
