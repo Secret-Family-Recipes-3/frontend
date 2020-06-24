@@ -50,3 +50,11 @@ h5 {
 a {
     color: $color-green-dark;
 }
+
+
+// Form error message
+
+p.error {
+    color: $color-brown;
+    font-weight: bold;
+}
