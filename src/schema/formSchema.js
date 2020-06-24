@@ -36,7 +36,7 @@ export const registerSchema = yup.object().shape({
     
     password2: yup
                 .string()
-                .oneOf([yup.ref('password')], 'Both passwords need to be the same')
+                // .oneOf([yup.ref('password')], 'Both passwords need to be the same')
                 .required()
 
     */
