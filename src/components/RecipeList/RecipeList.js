@@ -7,7 +7,11 @@ import axios from 'axios'
 
 export default function RecipeList () {
 
-    const initialrecipes = [];
+    const initialrecipes = [{
+        title: 'Grandmas World Famous Cookies',
+        img: 'https://static8.depositphotos.com/1068095/910/i/450/depositphotos_9100822-stock-photo-chocolate-chip-cookie.jpg',
+        id: '1'
+    }];
 
     const [ recipes, setRecipes ] = useState(initialrecipes);
 
