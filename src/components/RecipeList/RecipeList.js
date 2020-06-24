@@ -1,33 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import './RecipeList.scss';
 import Header from '../Header/Header';
+import MainHeading from '../MainHeading/MainHeading';
+import { Link } from 'react-router-dom';
 import axios from 'axios'
-import { Link } from 'react-router-dom'
-
 
 export default function RecipeList () {
 
-    const initialrecipes = []
+    const initialrecipes = [];
 
-    const [ recipes, setRecipes ] = useState(initialrecipes)
+    const [ recipes, setRecipes ] = useState(initialrecipes);
 
     useEffect(() => {
+        /*
         axios.get('https://secretfamilyrecipe3.herokuapp.com/') 
             .then(res => {
-                const newRecipes = res.data
-                setRecipes({...recipes, newRecipes})
+                const newRecipes = res.data;
+                setRecipes(newRecipes);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+        */
     }, [])
 
 
     return (
         <>
             <Header />
+            <MainHeading heading='All recipes' />
+
             <div className='RecipeList'>
                 <div className='container'>
                     <div className='row'>
-                        {recipes.map(recipe => {
+                        {recipes && recipes.map(recipe => {
                             return (
                                 <div className='col-md-6 col-lg-4 RecipeList__recipe'>
                                     <Link to={`/recipes/${recipe.id}`}>

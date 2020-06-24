@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import './Register.scss';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import * as yup from 'yup'
+
+import './Register.scss';
 import {registerSchema} from '../../schema/formSchema'
 
 export default function Register (props) {
+    const { setLoggedIn } = props;
+
+    const push = useHistory();
+
     const initialErrors = {
         username: '',
         password: '',
         email: '',
-        password2: ''
+        // password2: '',
+        server: ''
     }
 
     const initialformValues = {
         username: '',
         password: '',
-        password2: '',
+        // password2: '',
         email: ''
     }
 
@@ -32,6 +40,7 @@ export default function Register (props) {
     const [submitButton, setSubmitButton] = useState(true)
     const [formValues, setFormValues] = useState(initialformValues) 
 
+    const REGISTER_URL = 'https://secretfamilyrecipe3.herokuapp.com/api/register';
 
     const setBlur = event => {
         const targetName = event.target.name 
@@ -113,10 +122,33 @@ export default function Register (props) {
         })
     }, [formValues])
 
+
     const submitRegister = event => {
-        event.preventDefault()
+        event.preventDefault();
         
         console.log(`username: ${formValues.username}, password: ${formValues.password}`)
+
+        axios.post(REGISTER_URL, formValues)
+            .then(response => {
+                // Save the token in local storage
+                localStorage.setItem('loginToken', response.data.token);
+
+                // Set the state in 'App' component
+                setLoggedIn(true);
+                
+                // Redirect to the home page.
+                push('/');
+            })
+            .catch(error => {
+
+                // Display an error message if something went wrong
+                setErrors({
+                    ...errors,
+                    server: "Couldn't register. Please try again."
+                });
+
+                console.log(error);
+            });
     }
     return (
         <div className='Register'>
@@ -130,10 +162,19 @@ export default function Register (props) {
                             <form onSubmit={submitRegister}>
                                 <h4>Register:</h4>
 
-                                {Object.keys(errors).map((item, key) => {
-                                    if (errors[item]) {
-                                        return (<p key={key} className='error'>{errors[item]}</p>)
-                                }})}
+                                {
+                                    Object.keys(errors).map(
+                                        (item, key) => {
+                                            if (errors[item]) {
+                                                return (
+                                                    <p key={key} className='error'>
+                                                        {errors[item]}
+                                                    </p>
+                                                );
+                                            }
+                                        }
+                                    )
+                                }
 
 
                                 <label htmlFor='username'>Username:</label>

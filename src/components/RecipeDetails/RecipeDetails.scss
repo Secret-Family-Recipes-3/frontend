@@ -1,0 +1,92 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.RecipeDetails {
+
+    margin-bottom: 12rem;
+
+    // Box containers
+
+    .box-ingredients {
+        margin-bottom: 6rem;
+    }
+
+
+    // Ingredients
+
+    .ingredient {
+        border-bottom: 3px dotted $color-brown;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+    
+    
+        &__name, &__amount {
+            margin-bottom: -3px;
+            background-color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            line-height: 1;
+        }
+    }
+
+
+    // Recipe image
+
+    &__image-wrapper {
+        background-color: $color-brown-light;
+        background-image: url(../../images/forkknife.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+
+        width: 100%;
+        padding-bottom: 100%;
+        margin-bottom: 6rem;
+
+        position: relative;
+        overflow: hidden;
+
+
+        img {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+}
+
+
+// Directions (recipe steps)
+
+.directions {
+}
+
+.direction {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+
+    &__counter {
+        display: block;
+        width: 9rem;
+        height: 9rem;
+        background-color: $color-brown-light;
+        text-align: center;
+        line-height: 9rem;
+        font-size: 3rem;
+        color: $color-brown;
+        border-radius: 9999px;
+        margin-right: 3rem;
+        
+    }
+
+    &__content {
+        flex: 1;
+
+        p {
+            margin-top: 0;
+        }
+    }
+}
