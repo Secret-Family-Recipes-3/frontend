@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MainHeading from '../MainHeading/MainHeading';
+import Header from '../Header/Header';
 import jwt from 'jsonwebtoken';
 import authAxios from '../../utils/authAxios';
 import { useHistory } from 'react-router-dom';
@@ -21,7 +22,7 @@ export default function RecipeAdd (props) {
 
     const [editedRecipeData, setEditedRecipeData] = useState(initialRecipeData);
     const [errors, setErrors] = useState(initialErrors);
-    const [submitDisabled, setSubmitDisabled] = useState(true);
+    const [submitDisabled, setSubmitDisabled] = useState(false);
 
     function handleInputChange (event) {
         const fieldName = event.target.name;
@@ -39,10 +40,16 @@ export default function RecipeAdd (props) {
             })
             .catch(err => {
                 setErrors({...errors, [fieldName]: err.errors[0]});
-
                 // console.log(errors);
             })
     }
+
+    useEffect(() => {
+        recipeAddSchema.isValid(editedRecipeData)
+            .then(valid => {
+                setSubmitDisabled(!valid);
+            })
+    }, [editedRecipeData]);
 
     function submitRecipeForm (event) {
         event.preventDefault();
@@ -67,6 +74,7 @@ export default function RecipeAdd (props) {
 
     return (
         <div className='RecipeAdd'>
+            <Header />
             <MainHeading heading='Add a recipe' />
 
             <div className='container'>

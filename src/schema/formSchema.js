@@ -53,7 +53,6 @@ export const recipeAddSchema = yup.object().shape({
     description: yup
         .string()
         .min(5, 'Description must be at least 10 characters')
-        .max(256, 'Description must be fewer than 256 characters')
         .required('Description is required')
 
 });
