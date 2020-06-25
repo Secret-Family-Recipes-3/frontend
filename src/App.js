@@ -6,6 +6,7 @@ import PrivateRoute from './utils/privateRoute';
 import TopPanel from './components/TopPanel/TopPanel';
 import RecipeList from './components/RecipeList/RecipeList';
 import RecipeDetails from './components/RecipeDetails/RecipeDetails';
+import RecipeAdd from './components/RecipeAdd/RecipeAdd';
 
 function App () {
     // check if login 
@@ -28,6 +29,7 @@ function App () {
                 </Route>
                 
                 <PrivateRoute path="/recipes/:id" component={RecipeDetails} />
+                <PrivateRoute path="/add" component={RecipeAdd} />
                 
             </Switch>
         </>

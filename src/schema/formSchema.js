@@ -1,4 +1,4 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 
 export const loginSchema = yup.object().shape({
@@ -14,7 +14,7 @@ export const loginSchema = yup.object().shape({
         .min(7, 'Minimum password length is 7 characters')
         .max(256, 'Password must be fewer than 256 characters')
         .required('Password is required')
-})
+});
 
 export const registerSchema = yup.object().shape({
     username: yup
@@ -42,4 +42,17 @@ export const registerSchema = yup.object().shape({
                 .required()
 
     */
-})
+});
+
+export const recipeAddSchema = yup.object().shape({
+    title: yup
+        .string()
+        .min(5, 'Title must be at least 5 characters')
+        .max(256, 'Title must be fewer than 256 characters')
+        .required('Title is required'),
+    description: yup
+        .string()
+        .min(5, 'Description must be at least 10 characters')
+        .required('Description is required')
+
+});
