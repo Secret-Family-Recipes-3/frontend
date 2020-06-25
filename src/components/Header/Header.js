@@ -16,7 +16,7 @@ export default function Header () {
 
                             <nav className="Header__nav">
                                 <Link to='/recipes'>All Recipes</Link>
-                                <Link to='/'>Add a Recipe</Link>
+                                <Link to='/add'>Add a Recipe</Link>
                             </nav>
 
                         </div>
