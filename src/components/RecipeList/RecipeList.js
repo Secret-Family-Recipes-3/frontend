@@ -48,8 +48,8 @@ export default function RecipeList () {
                 <div className='container'>
                     <div className='row'>
 
-                        {recipes && recipes.map(recipe => {
-                            return <RecipeTile recipe={recipe} />
+                        {recipes && recipes.map((recipe, index) => {
+                            return <RecipeTile key={index} recipe={recipe} />
                         }) }
                         
                     </div>
