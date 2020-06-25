@@ -5,7 +5,7 @@ import Register from './components/Register/Register';
 import PrivateRoute from './utils/privateRoute';
 import TopPanel from './components/TopPanel/TopPanel';
 import RecipeList from './components/RecipeList/RecipeList';
-import RecipeDetails from './components/RecipeDetails/RecipeDetails';
+import RecipePage from './components/RecipePage/RecipePage';
 import RecipeAdd from './components/RecipeAdd/RecipeAdd';
 
 function App () {
@@ -28,7 +28,7 @@ function App () {
                     <Register setLoggedIn={setLoggedIn} />
                 </Route>
                 
-                <PrivateRoute path="/recipes/:id" component={RecipeDetails} />
+                <PrivateRoute path="/recipes/:id" component={RecipePage} />
                 <PrivateRoute path="/add" component={RecipeAdd} />
                 
             </Switch>

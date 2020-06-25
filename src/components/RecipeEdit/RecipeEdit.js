@@ -1,28 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import MainHeading from '../MainHeading/MainHeading';
-import Header from '../Header/Header';
-import jwt from 'jsonwebtoken';
-import authAxios from '../../utils/authAxios';
-import { useHistory } from 'react-router-dom';
 import { recipeSchema } from '../../schema/formSchema';
 import * as yup from 'yup';
+import authAxios from '../../utils/authAxios';
 
-export default function RecipeAdd (props) {
-    const { push } = useHistory();
-
-    const initialRecipeData = {
-        title: '',
-        description: ''
-    };
+export default function RecipeEdit (props) {
+    const { recipe, setRecipe, setPageMode } = props;
 
     const initialErrors = {
         title: '',
         description: ''
     };
 
+    const initialRecipeData = {
+        title: recipe.title,
+        description: recipe.description
+    };
+
     const [editedRecipeData, setEditedRecipeData] = useState(initialRecipeData);
+
     const [errors, setErrors] = useState(initialErrors);
     const [submitDisabled, setSubmitDisabled] = useState(false);
+
+    function submitRecipeForm (event) {
+        event.preventDefault();
+        
+        const requestData = {
+            ...editedRecipeData,
+            created_by: recipe.created_by,
+            private: recipe.private,
+            id: recipe.id,
+        }
+
+        authAxios().put(`/api/recipes/${recipe.id}`, requestData)
+            .then(response => {
+                setEditedRecipeData(initialRecipeData);
+                setRecipe(response.data);
+                setPageMode('default');
+            })
+            .catch(error => {
+                console.log('Could not add the recipe');
+            });
+    }
+
 
     function handleInputChange (event) {
         const fieldName = event.target.name;
@@ -51,31 +71,9 @@ export default function RecipeAdd (props) {
             })
     }, [editedRecipeData]);
 
-    function submitRecipeForm (event) {
-        event.preventDefault();
-        
-        const userId = (jwt.decode(localStorage.getItem('loginToken'))).user_id;
-        
-        const requestData = {
-            ...editedRecipeData,
-            created_by: userId,
-            private: true,
-        }
-
-        authAxios().post('/api/recipes', requestData)
-            .then(response => {
-                setEditedRecipeData(initialRecipeData);
-                push('/');
-            })
-            .catch(error => {
-                console.log('Could not add the recipe');
-            });
-    }
-
     return (
-        <div className='RecipeAdd'>
-            <Header />
-            <MainHeading heading='Add a recipe' />
+        <>
+            <MainHeading heading='Edit the recipe' />
 
             <div className='container'>
                 <div className='row'>
@@ -112,12 +110,13 @@ export default function RecipeAdd (props) {
                             >
                             </textarea>
 
-                            <button disabled={submitDisabled} className='button button-green'>Add</button>
+                            <button disabled={submitDisabled} className='button button-green'>Save</button>
+                            <button onClick={() => setPageMode('default')} className='button'>Cancel</button>
                         </form>
                     </div>
                 </div>
 
             </div>
-        </div>
+        </>
     );
 }
