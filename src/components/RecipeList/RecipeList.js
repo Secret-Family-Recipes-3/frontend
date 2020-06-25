@@ -12,15 +12,24 @@ export default function RecipeList () {
 
     const initialrecipes = [];
 
-    const [ recipes, setRecipes ] = useState(initialrecipes);
+    const [recipes, setRecipes] = useState(initialrecipes);
+    const [filteredRecipes, setFilteredRecipes] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    function handleSearchChange (event) {
+        setSearchQuery(event.target.value);
+    }
 
     useEffect(() => {
-        // axios.get('https://secretfamilyrecipe3.herokuapp.com/') 
-        //     .then(res => {
-        //         const newRecipes = res.data;
-        //         setRecipes(newRecipes);
-        //     })
-        //     .catch(err => console.log(err));
+        const results = recipes.filter(recipe => {
+            return (recipe.title.toLowerCase()).includes(searchQuery.toLowerCase());
+        });
+
+        setFilteredRecipes(results);
+
+    }, [searchQuery]);
+
+    useEffect(() => {
         const tokenInfo = jwt.decode(localStorage.getItem('loginToken'));
         authAxios().get('/api/recipes', tokenInfo)
             .then(res => {
@@ -39,8 +48,26 @@ export default function RecipeList () {
             <div className='RecipeList'>
                 <div className='container'>
                     <div className='row'>
+                        <div className='col-md-12'>
+                        {recipes &&
+                            <form>
+                                <input
+                                    type='search'
+                                    placeholder='Search...'
+                                    value={searchQuery}
+                                    onChange={handleSearchChange}
+                                />
+                            </form>
+                        }
+                        </div>
+                    </div>
+                    <div className='row'>
 
-                        {recipes && recipes.map((recipe) => {
+                        {recipes && searchQuery === '' && recipes.map((recipe) => {
+                            return <RecipeTile key={recipe.id} recipe={recipe} />
+                        }) }
+
+                        {searchQuery !== '' && filteredRecipes.map((recipe) => {
                             return <RecipeTile key={recipe.id} recipe={recipe} />
                         }) }
                         
