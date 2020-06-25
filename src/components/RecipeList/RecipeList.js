@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import './RecipeList.scss';
 import Header from '../Header/Header';
 import MainHeading from '../MainHeading/MainHeading';
 import { Link } from 'react-router-dom';
-// import axios from 'axios'
-import authAxios from '../../utils/authAxios'
+// import axios from 'axios';
+import authAxios from '../../utils/authAxios';
 import jwt from 'jsonwebtoken';
+import RecipeTile from '../RecipeTile/RecipeTile';
 
 
 export default function RecipeList () {
@@ -16,8 +17,8 @@ export default function RecipeList () {
     //     id: '1'
     // }];
     
-    const initialrecipes = []
-    const defaultImg = 'https://images.unsplash.com/photo-1546250683-afa23f23dde1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80'
+    const initialrecipes = [];
+    // const defaultImg = 'https://images.unsplash.com/photo-1546250683-afa23f23dde1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80'
 
     const [ recipes, setRecipes ] = useState(initialrecipes);
 
@@ -31,10 +32,10 @@ export default function RecipeList () {
         const tokenInfo = jwt.decode(localStorage.getItem('loginToken'));
         authAxios().get('/api/recipes', tokenInfo)
             .then(res => {
-                const newRecipes = res.data
-                setRecipes(newRecipes)
+                const newRecipes = res.data;
+                setRecipes(newRecipes);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
     }, [])
 
 
@@ -48,16 +49,7 @@ export default function RecipeList () {
                     <div className='row'>
 
                         {recipes && recipes.map(recipe => {
-                            return (
-                                <div key={recipe.id} className='col-md-6 col-lg-4 RecipeList__recipe'>
-                                    <Link to={`/recipes/${recipe.id}`}>
-                                        <div className='RecipeList__image-wrapper'>
-                                            <img src={recipe.img || defaultImg} alt={recipe.title} />
-                                        </div>
-                                    </Link>
-                                    <h5>{recipe.title}</h5>
-                                </div>
-                            )
+                            return <RecipeTile recipe={recipe} />
                         }) }
                         
                     </div>
