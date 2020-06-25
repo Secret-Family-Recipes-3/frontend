@@ -26,67 +26,12 @@ export default function Register (props) {
         email: ''
     }
 
-    const initialBlurValues = {
-        username: false,
-        password: false,
-        password2: false,
-        email: false
-    }
-
-
-    const [blurred, hasBlurred] = useState(initialBlurValues);
-
     const [errors, setErrors] = useState(initialErrors);
     const [submitButton, setSubmitButton] = useState(true);
     const [formValues, setFormValues] = useState(initialformValues) ;
 
     const REGISTER_URL = 'https://sfr-backend.herokuapp.com/api/auth/register';
 
-    const setBlur = event => {
-        const targetName = event.target.name ;
-        hasBlurred({...blurred, [targetName]: true});
-    }
-
-    // const onChange = async event => {
-    //     const name = event.target.name
-    //     const value = event.target.value
-        
-    //     // console.log(`${name}: ${value}`)
-    //     //set state
-    //     setFormValues({...formValues, [name]: value})
-
-    //     //the state available to this block lags behind by a keystroke
-    //     // modeling what the state will be on render
-    //     const formValuesModel = {
-    //         ...formValues, [name]: value
-    //     }
-        
-    //     //reset error state to initial
-    //     setErrors(initialErrors)
-
-    //     try{
-    //         // is the form data valid - if not, initialErrors persists
-    //         // default behavior is to return only a single error - override with abortEarly: false
-    //         await registerSchema.validate(formValuesModel, {abortEarly: false})
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //         //make sure it's the right type of error
-    //         if (err.name === 'ValidateionError') {
-    //             //create synchronous model of state
-    //             let errorModel = {...initialErrors}
-    //             console.log(errorModel)
-    //             //iterate through the errors returned
-    //             err.inner.forEach(err => {
-    //                 errorModel = {
-    //                     ...errorModel,
-    //                     [err.path]: [...errorModel[err.path], err.message]
-    //                 }
-    //             })
-    //             setErrors(errorModel)
-    //         }
-    //     }
-    // }
 
     const onChange = event => {
         const name = event.target.name;
@@ -183,28 +128,16 @@ export default function Register (props) {
 
 
                                 <label htmlFor='username'>Username:</label>
-                                <input onBlur={setBlur} name='username' value={formValues.username} type='text' id='username' onChange={onChange} />
-                                {/* {blurred.username && errors.username.map( err => {
-                                    return <p>{err}</p>
-                                })} */}
+                                <input name='username' value={formValues.username} type='text' id='username' onChange={onChange} />
 
                                 <label htmlFor='email'>E-mail:</label>
-                                <input onBlur={setBlur} name='email' value={formValues.email} type='email' id='email' onChange={onChange} />
-                                {/* {blurred.email && errors.email.map( err => {
-                                    return <p>{err}</p>
-                                })} */}
+                                <input name='email' value={formValues.email} type='email' id='email' onChange={onChange} />
 
                                 <label htmlFor='password'>Password:</label>
-                                <input onBlur={setBlur} name='password' value={formValues.password} type='password' id='password' onChange={onChange} />
-                                {/* {blurred.password && errors.password.map( err => {
-                                    return <p>{err}</p>
-                                })} */}
+                                <input name='password' value={formValues.password} type='password' id='password' onChange={onChange} />
 
                                 <label htmlFor='password2'>Confirm Password:</label>
-                                <input onBlur={setBlur} name='password2' value={formValues.password2} type='password' id='password2' onChange={onChange} />
-                                {/* {blurred.password2 && errors.password2.map( err => {
-                                    return <p>{err}</p>
-                                })} */}
+                                <input name='password2' value={formValues.password2} type='password' id='password2' onChange={onChange} />
 
                                 <button disabled={submitButton} className='button button-green'>Register</button>
                             </form>
