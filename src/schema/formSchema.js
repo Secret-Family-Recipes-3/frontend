@@ -44,7 +44,7 @@ export const registerSchema = yup.object().shape({
     */
 });
 
-export const recipeAddSchema = yup.object().shape({
+export const recipeSchema = yup.object().shape({
     title: yup
         .string()
         .min(5, 'Title must be at least 5 characters')
