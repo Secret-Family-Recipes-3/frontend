@@ -9,20 +9,20 @@ import {registerSchema} from '../../schema/formSchema'
 export default function Register (props) {
     const { setLoggedIn } = props;
 
-    const push = useHistory();
+    const { push } = useHistory();
 
     const initialErrors = {
         username: '',
         password: '',
         email: '',
-        // password2: '',
+        password2: '',
         server: ''
     }
 
     const initialformValues = {
         username: '',
         password: '',
-        // password2: '',
+        password2: '',
         email: ''
     }
 
@@ -34,17 +34,17 @@ export default function Register (props) {
     }
 
 
-    const [blurred, hasBlurred] = useState(initialBlurValues)
+    const [blurred, hasBlurred] = useState(initialBlurValues);
 
-    const [errors, setErrors] = useState(initialErrors)
-    const [submitButton, setSubmitButton] = useState(true)
-    const [formValues, setFormValues] = useState(initialformValues) 
+    const [errors, setErrors] = useState(initialErrors);
+    const [submitButton, setSubmitButton] = useState(true);
+    const [formValues, setFormValues] = useState(initialformValues) ;
 
-    const REGISTER_URL = 'https://secretfamilyrecipe3.herokuapp.com/api/register';
+    const REGISTER_URL = 'https://sfr-backend.herokuapp.com/api/auth/register';
 
     const setBlur = event => {
-        const targetName = event.target.name 
-        hasBlurred({...blurred, [targetName]: true})
+        const targetName = event.target.name ;
+        hasBlurred({...blurred, [targetName]: true});
     }
 
     // const onChange = async event => {
@@ -89,20 +89,19 @@ export default function Register (props) {
     // }
 
     const onChange = event => {
-        const name = event.target.name
-        const value = event.target.value
+        const name = event.target.name;
+        const value = event.target.value;
         
         // console.log(`${name}: ${value}`)
 
         yup.reach(registerSchema, name)
             .validate(value)
             .then(valid => {
-                setErrors({...errors, [name]: ''})
-                console.log({...valid})
+                setErrors({...errors, [name]: ''});
             })
             .catch(err => {
-                setErrors({...errors, [name]: err.errors[0]})
-                console.log(errors)
+                setErrors({...errors, [name]: err.errors[0]});
+                // console.log(errors);
             })
 
 
@@ -126,9 +125,15 @@ export default function Register (props) {
     const submitRegister = event => {
         event.preventDefault();
         
-        console.log(`username: ${formValues.username}, password: ${formValues.password}`)
+        // console.log(`username: ${formValues.username}, password: ${formValues.password}`)
 
-        axios.post(REGISTER_URL, formValues)
+        const requestData = {
+            username: formValues.username,
+            email: formValues.email,
+            password: formValues.password
+        };
+
+        axios.post(REGISTER_URL, requestData)
             .then(response => {
                 // Save the token in local storage
                 localStorage.setItem('loginToken', response.data.token);
