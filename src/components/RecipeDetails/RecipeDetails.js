@@ -1,8 +1,29 @@
 import React from 'react';
 import MainHeading from '../MainHeading/MainHeading';
+import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+import authAxios from '../../utils/authAxios';
 
 export default function RecipeDetails (props) {
     const { recipe, setPageMode } = props;
+    const { push } = useHistory();
+
+    function handleDelete (event) {
+        const userId = (jwt.decode(localStorage.getItem('loginToken'))).user_id;
+
+        const requestData = {
+            id: recipe.id,
+            created_by: userId
+        };
+
+        authAxios().delete(`/api/recipes/${recipe.id}`, requestData)
+            .then(response => {
+                push('/recipes');
+            })
+            .catch(error => {
+                console.log('Could not add the recipe');
+            });
+    }
 
     return (
         <>
@@ -26,6 +47,7 @@ export default function RecipeDetails (props) {
                 <div className='row'>
                     <div className='col-md-12'> 
                         <button onClick={() => setPageMode('edit')} className='button button-green'>Edit</button>
+                        <button onClick={handleDelete} className='button'>Delete</button>
                     </div>
                 </div>
 
