@@ -45,8 +45,10 @@ export default function Register (props) {
                 setErrors({...errors, [name]: ''});
             })
             .catch(err => {
+                // debugger
                 setErrors({...errors, [name]: err.errors[0]});
-                // console.log(errors);
+            //     console.log(err)
+            //     console.log(errors);
             })
 
 
@@ -60,11 +62,12 @@ export default function Register (props) {
                 setSubmitButton(!valid)
                 setErrors({...errors, [errors.password2]: ''})
             } else {
+                //this is resetting error state to empty strings for all other properties 
                 setErrors({...errors, [errors.password2]: 'Passwords must match'})
             }
             
         })
-    }, [formValues])
+    }, [formValues.password2 || formValues.password])
 
 
     const submitRegister = event => {

@@ -43,8 +43,8 @@ export default function Login(props) {
             })
             .catch(err => {
                 setErrors({...errors, [name]: err.errors[0]});
-
-                // console.log(errors);
+                console.log(err)
+                console.log(errors);
             })
 
 
