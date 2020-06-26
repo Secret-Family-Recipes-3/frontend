@@ -19,6 +19,7 @@ export const loginSchema = yup.object().shape({
 export const registerSchema = yup.object().shape({
     username: yup
         .string()
+        .trim()
         .min(5, 'Username must be at least 5 characters')
         .max(256, 'Username must be fewer than 256 characters')
         .required('Username is required'),
