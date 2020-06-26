@@ -67,7 +67,7 @@ export default function Register (props) {
             }
             
         })
-    }, [formValues.password2 || formValues.password])
+    }, [formValues.password2])
 
 
     const submitRegister = event => {
